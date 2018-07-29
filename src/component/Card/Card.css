@@ -1,0 +1,27 @@
+.flippy-front {
+    box-shadow: none;
+    padding: 0;
+}
+.card__tilt {
+    height: 100%;
+    margin: 0 auto;
+}
+.card__img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+    display: fixed;
+}
+.card__img img {
+    display: block;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+}
+.card__back {
+    
+}
