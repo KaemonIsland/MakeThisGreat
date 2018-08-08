@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CardList from './component/CardList/CardList';
 import SearchField from './component/SearchField/SearchField';
 import Footer from './component/Footer/Footer';
+import mtgDevSearch from './component/mtgDevSearch/mtgDevSearch';
 import './App.css';
 
 class App extends Component {
@@ -10,22 +11,11 @@ class App extends Component {
     this.state = {
       cards: '',
       search: '',
-      searchType: 'set'
+      searchType: 'name'
     }
 
     this.writeName = this.writeName.bind(this);
     this.searchCard = this.searchCard.bind(this);
-  }
-
-  sortCards = (cardsObj) => {
-    switch(this.state.searchType) {
-        case "set":
-            cardsObj.sort((a, b) => a.multiverseid - b.multiverseid);
-            break;
-        case 'name':
-            cardsObj.sort((a, b) => b.multiverseid - a.multiverseid);
-            break;
-    }
   }
 
 
@@ -34,28 +24,13 @@ class App extends Component {
   }
 
   searchCard() {
-    try {
-      let query = this.state.search;
-      let search = fetch(`https://api.magicthegathering.io/v1/cards?name=${query}`);
-      this.handleSearch(search);
-      this.setState({ search: '', searchType: 'name' });
-    } catch (error) {
-     console.log(error); 
-    }
-  }
-
-  async handleSearch(query) {
-    query.then(resp => resp.json())
-    .then(card => {
-      this.sortCards(card.cards)
-      this.setState({ cards: card.cards })
-    })
-    .catch(error => console.log(error));
+    mtgDevSearch.searchCard(this.state.search, this.state.searchType)
+    .then(cards => this.setState({ cards: cards.cards, search: '', searchType: 'name' }));
   }
 
   componentDidMount() {
-    let search = fetch('https://api.magicthegathering.io/v1/cards?set=M19&page=1');
-    this.handleSearch(search);
+    mtgDevSearch.onStartSearch()
+    .then(cards => this.setState({ cards: cards.cards }))
   }
 
 

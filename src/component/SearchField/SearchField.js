@@ -4,6 +4,10 @@ import './SearchField.css';
 class SearchField extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            search: '',
+            searchType: ''
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
