@@ -1,4 +1,4 @@
-const mtgDevSearch = {
+ const mtgDevSearch = {
 
     onStartSearch() {
         try {
